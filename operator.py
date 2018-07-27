@@ -154,6 +154,7 @@ while(True):#fresh start
             except Exception:
                 i = 1
                 failedLoop = True
+                results {}
                 code_set = masterCodeSet#the population basically all the guesses from red red red red to purple purple purple purple
         if(checkIfWon()):
             continuePlaying = False
