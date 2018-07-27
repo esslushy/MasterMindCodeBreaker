@@ -134,6 +134,7 @@ while(True):#fresh start
     guess = []
     code_set = masterCodeSet#the population basically all the guesses from red red red red to purple purple purple purple
     while(continuePlaying):#once won everything resets
+        failedLoop = False
         if i == 1:#first guess
             guess = (0, 0, 1, 1)#best guess according to knuth
             print(guess)
@@ -142,16 +143,20 @@ while(True):#fresh start
             tempCodeSet =[]
             for t in code_set:
                 tempResult = playresult(t, results[i-1]["guess"])
-                if  tempResult[0] == results[i-1]["result"][0]:
+                if  tempResult[0] == results[i-1]["result"][0] and tempResult[1] >= results[i-1]["result"][1]:
                     tempCodeSet.append(t)
                     #sort them all out according to previous results
             code_set = tempCodeSet
-            guess = chooseOne(code_set)
-            print(guess)
-            inputSelectionOfCode(guess)
+            try:
+                guess = chooseOne(code_set)
+                print(guess)
+                inputSelectionOfCode(guess)
+            except Exception:
+                i = 1
+                failedLoop = True
         if(checkIfWon()):
             continuePlaying = False
-        else:
+        elif not failedLoop:
             result = scoringResult()#tuple of Black, white or correct place and color and just correct place
             print(result)
             results[i]={"guess": guess, "result": result}
