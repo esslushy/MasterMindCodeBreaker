@@ -4,10 +4,17 @@ from selenium.common.exceptions import ElementNotVisibleException, NoSuchElement
 import time, re, collections, itertools, math, random
 import numpy as np
 import pandas as pd
+import argparse
 
-#username and password used to sign in
-username = "esslushy"
-password = "l1o2l3o4"
+parser = argparse.ArgumentParser(description='Automatically play mastermind. Please input username and password for account.')
+parser.add_argument('--username', '-u', required=True, type=str)
+parser.add_argument('--password', '-p', required=True, type=str)
+
+args = parser.parse_args()
+
+#username and password used to sign in passed by args
+username = args['username']
+password = args['password']
 #signing in
 driver = webdriver.Chrome()
 driver.get("https://www.wajas.com/home_landing.php")
